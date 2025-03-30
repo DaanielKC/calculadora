@@ -1,4 +1,5 @@
 let num = document.querySelector('div#num')
+let operador = document.getElementById('operadores')
 var res1 = 0
 var res2 = 0
 var operacao = ''
@@ -106,32 +107,52 @@ function mudasinal() {
 }
 
 function somar() {
+    if (operador.innerHTML != '') {
+        igual()
+    }
     res1 = Number(num.innerHTML)
     num.innerHTML = ' + '
+    operador.innerHTML = '+'
     operacao = 'soma'
 }
 
 function subtrair() {
+    if (operador.innerHTML != '') {
+        igual()
+    }
     res1 = Number(num.innerHTML)
     num.innerHTML = ' - '
+    operador.innerHTML = '-'
     operacao = 'sub'
 }
 
 function multiplicar() {
+    if (operador.innerHTML != '') {
+        igual()
+    }
     res1 = Number(num.innerHTML)
-    num.innerHTML = ' X '
+    num.innerHTML = ' x '
+    operador.innerHTML = 'x'
     operacao = 'mult'
 }
 
 function dividir() {
+    if (operador.innerHTML != '') {
+        igual()
+    }
     res1 = Number(num.innerHTML)
     num.innerHTML = ' ÷ '
+    operador.innerHTML = '÷'
     operacao = 'div'
 }
 
 function porcentagem() {
+    if (operador.innerHTML != '') {
+        igual()
+    }
     res1 = Number(num.innerHTML)
     num.innerHTML = ' % '
+    operador.innerHTML = '%'
     operacao = 'porc'
 }
 
@@ -168,6 +189,7 @@ function igual() {
             break;
     }
     paren = 'nao'
+    operador.innerHTML = ''
 }
 
 
