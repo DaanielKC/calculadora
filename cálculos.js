@@ -1,17 +1,28 @@
 let num = document.querySelector('div#num')
 let operador = document.getElementById('operadores')
-var res1 = 0
-var res2 = 0
-var operacao = ''
-var paren = ''
-var numsemparent = 0
+let res1 = 0
+let res2 = 0
+let operacao = ''
+let paren = ''
+let paren2 = ''
+let numsemparent = 0
 
 function apagar() {
     num.innerHTML = ''
+    operador.innerHTML = ''
+    res1 = 0
+    res2 = 0
+    operacao = ''
+    paren = ''
+    paren2 = ''
+    numsemparent = 0
 }
 
 function um() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '1'
     } else {
         num.innerHTML += '1'
@@ -19,7 +30,10 @@ function um() {
 }
 
 function dois() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '2'
     } else {
         num.innerHTML += '2'
@@ -27,7 +41,10 @@ function dois() {
 }
 
 function tres() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '3'
     } else {
         num.innerHTML += '3'
@@ -35,7 +52,10 @@ function tres() {
 }
 
 function quatro(){
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '4'
     } else {
         num.innerHTML += '4'
@@ -43,7 +63,10 @@ function quatro(){
 }
 
 function cinco() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '5'
     } else {
         num.innerHTML += '5'
@@ -51,7 +74,10 @@ function cinco() {
 }
 
 function seis() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '6'
     } else {
         num.innerHTML += '6'
@@ -59,7 +85,10 @@ function seis() {
 }
 
 function sete() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '7'
     } else {
         num.innerHTML += '7'
@@ -67,7 +96,10 @@ function sete() {
 }
 
 function oito() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '8'
     } else {
         num.innerHTML += '8'
@@ -75,7 +107,10 @@ function oito() {
 }
 
 function nove() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '9'
     } else {
         num.innerHTML += '9'
@@ -83,7 +118,10 @@ function nove() {
 }
 
 function zero() {
-    if (isNaN(Number(num.innerHTML)) == true) {
+    if (paren == 'sim') {
+        return
+    }
+    if (operador.innerHTML != '') {
         num.innerHTML = '0'
     } else {
         num.innerHTML += '0'
@@ -91,12 +129,27 @@ function zero() {
 }
 
 function parentesis() {
+    if (paren == 'sim' && numsemparent == 0) {
+        num.innerHTML = ''
+        return
+    } else if (paren == 'sim') {
+        num.innerHTML = String(numsemparent)
+        paren = 'nao'
+        paren2 = 'nao'
+        return
+    }
     numsemparent = Number(num.innerHTML)
     num.innerHTML = `(${num.innerHTML})`
     paren = 'sim'
+    paren2 = 'sim'
 }
 
 function ponto() {
+    if (paren == 'sim') {
+        return
+    }
+    if (num.innerHTML.includes('.'))
+        return
     num.innerHTML += '.'
 }
 
@@ -107,58 +160,98 @@ function mudasinal() {
 }
 
 function somar() {
-    if (operador.innerHTML != '') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+        return
+    } else if (operador.innerHTML != '') {
         igual()
-    }
+        res1 = Number(num.innerHTML)
+        operador.innerHTML = '+'
+        operacao = 'soma'
+        paren = 'nao'
+    } else {
     res1 = Number(num.innerHTML)
     num.innerHTML = ' + '
     operador.innerHTML = '+'
     operacao = 'soma'
+    paren = 'nao'
+    }
 }
 
 function subtrair() {
-    if (operador.innerHTML != '') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+        return
+    } else if (operador.innerHTML != '') {
         igual()
-    }
+        res1 = Number(num.innerHTML)
+        operador.innerHTML = '-'
+        operacao = 'sub'
+        paren = 'nao'
+    } else {
     res1 = Number(num.innerHTML)
     num.innerHTML = ' - '
     operador.innerHTML = '-'
     operacao = 'sub'
+    paren = 'nao'
+    }
 }
 
 function multiplicar() {
-    if (operador.innerHTML != '') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+        return
+    } else if (operador.innerHTML != '') {
         igual()
-    }
+        res1 = Number(num.innerHTML)
+        operador.innerHTML = 'x'
+        operacao = 'mult'
+        paren = 'nao'
+    } else {
     res1 = Number(num.innerHTML)
     num.innerHTML = ' x '
     operador.innerHTML = 'x'
     operacao = 'mult'
+    paren = 'nao'
+    }
 }
 
 function dividir() {
-    if (operador.innerHTML != '') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+        return
+    } else if (operador.innerHTML != '') {
         igual()
-    }
+        res1 = Number(num.innerHTML)
+        operador.innerHTML = '÷'
+        operacao = 'div'
+        paren = 'nao'
+    } else {
     res1 = Number(num.innerHTML)
     num.innerHTML = ' ÷ '
     operador.innerHTML = '÷'
     operacao = 'div'
+    paren = 'nao'
+    }
 }
 
 function porcentagem() {
-    if (operador.innerHTML != '') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+        return
+    } else if (operador.innerHTML != '') {
         igual()
-    }
+        res1 = Number(num.innerHTML)
+        operador.innerHTML = '%'
+        operacao = 'porc'
+        paren = 'nao'
+    } else {
     res1 = Number(num.innerHTML)
     num.innerHTML = ' % '
     operador.innerHTML = '%'
     operacao = 'porc'
+    paren = 'nao'
+    }
 }
 
 
 function igual() {
-    if (paren == 'sim') {
+    if (paren2 == 'sim') {
         if (isNaN(Number(num.innerHTML)) == false) {
             res1 = numsemparent
         } else {
@@ -180,8 +273,12 @@ function igual() {
             num.innerHTML = res2
             break;
         case 'div':
-            res2 = (res1 / Number(num.innerHTML))
-            num.innerHTML = res2
+            if (Number(num.innerHTML) == 0) {
+                num.innerHTML = 'Impossível calcular'
+            } else {
+                res2 = (res1 / Number(num.innerHTML))
+                num.innerHTML = res2
+            }
             break;
         case 'porc':
             res2 = ((res1 * Number(num.innerHTML)) / 100)
@@ -189,7 +286,9 @@ function igual() {
             break;
     }
     paren = 'nao'
+    paren2 = 'nao'
     operador.innerHTML = ''
+    numsemparent = 0
 }
 
 
