@@ -2,6 +2,8 @@ let num = document.querySelector('div#num')
 var res1 = 0
 var res2 = 0
 var operacao = ''
+var paren = ''
+var numsemparent = 0
 
 function apagar() {
     num.innerHTML = ''
@@ -88,7 +90,9 @@ function zero() {
 }
 
 function parentesis() {
+    numsemparent = Number(num.innerHTML)
     num.innerHTML = `(${num.innerHTML})`
+    paren = 'sim'
 }
 
 function ponto() {
@@ -133,6 +137,14 @@ function porcentagem() {
 
 
 function igual() {
+    if (paren == 'sim') {
+        if (isNaN(Number(num.innerHTML)) == false) {
+            res1 = numsemparent
+        } else {
+            num.innerHTML = numsemparent.toString()
+        }
+    }
+    
     switch (operacao) {
         case 'soma':
             res2 = (res1 + Number(num.innerHTML)) 
@@ -155,6 +167,7 @@ function igual() {
             num.innerHTML = res2
             break;
     }
+    paren = 'nao'
 }
 
 
