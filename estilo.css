@@ -14,12 +14,23 @@ section {
     padding: 20px;
     width: 350px;
     margin: auto;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.356)
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.356);
+    height: 400px;
 }
 
+div#num {
+    font-size: 25pt;
+    background: rgb(149, 241, 149);
+    width: 350px;
+    height: 60px;
+    vertical-align: bottom;
+    text-align: end;
+    margin-bottom: 20px;
+}
+
+
 div {
-    margin-bottom: 15px;
-   
+    margin-bottom: 0px;
 }
 
 input#a {
