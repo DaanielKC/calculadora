@@ -8,43 +8,97 @@ function apagar() {
 }
 
 function um() {
-    num.innerHTML = '1'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '1'
+    } else {
+        num.innerHTML += '1'
+    }
 }
 
 function dois() {
-    num.innerHTML = '2'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '2'
+    } else {
+        num.innerHTML += '2'
+    }
 }
 
 function tres() {
-    num.innerHTML = '3'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '3'
+    } else {
+        num.innerHTML += '3'
+    }
 }
 
 function quatro(){
-    num.innerHTML = '4'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '4'
+    } else {
+        num.innerHTML += '4'
+    }
 }
 
 function cinco() {
-    num.innerHTML = '5'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '5'
+    } else {
+        num.innerHTML += '5'
+    }
 }
 
 function seis() {
-    num.innerHTML = '6'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '6'
+    } else {
+        num.innerHTML += '6'
+    }
 }
 
 function sete() {
-    num.innerHTML = '7'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '7'
+    } else {
+        num.innerHTML += '7'
+    }
 }
 
 function oito() {
-    num.innerHTML = '8'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '8'
+    } else {
+        num.innerHTML += '8'
+    }
 }
 
 function nove() {
-    num.innerHTML = '9'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '9'
+    } else {
+        num.innerHTML += '9'
+    }
 }
 
 function zero() {
-    num.innerHTML = '0'
+    if (isNaN(Number(num.innerHTML)) == true) {
+        num.innerHTML = '0'
+    } else {
+        num.innerHTML += '0'
+    }
+}
+
+function parentesis() {
+    num.innerHTML = `(${num.innerHTML})`
+}
+
+function ponto() {
+    num.innerHTML += '.'
+}
+
+function mudasinal() {
+    ms = Number(num.innerHTML)
+    ms = (ms * (-1))
+    num.innerHTML = ms.toString()
 }
 
 function somar() {
@@ -59,6 +113,24 @@ function subtrair() {
     operacao = 'sub'
 }
 
+function multiplicar() {
+    res1 = Number(num.innerHTML)
+    num.innerHTML = ' X '
+    operacao = 'mult'
+}
+
+function dividir() {
+    res1 = Number(num.innerHTML)
+    num.innerHTML = ' ÷ '
+    operacao = 'div'
+}
+
+function porcentagem() {
+    res1 = Number(num.innerHTML)
+    num.innerHTML = ' % '
+    operacao = 'porc'
+}
+
 
 function igual() {
     switch (operacao) {
@@ -68,6 +140,18 @@ function igual() {
             break;
         case 'sub':
             res2 = (res1 - Number(num.innerHTML))
+            num.innerHTML = res2
+            break;
+        case 'mult':
+            res2 = (res1 * Number(num.innerHTML))
+            num.innerHTML = res2
+            break;
+        case 'div':
+            res2 = (res1 / Number(num.innerHTML))
+            num.innerHTML = res2
+            break;
+        case 'porc':
+            res2 = ((res1 * Number(num.innerHTML)) / 100)
             num.innerHTML = res2
             break;
     }
