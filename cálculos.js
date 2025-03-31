@@ -1,278 +1,125 @@
 let num = document.querySelector('div#num')
 let operador = document.getElementById('operadores')
-let res1 = 0
-let res2 = 0
+let res1 = null
+let res2 = null
 let operacao = ''
-let paren = ''
-let paren2 = ''
-let numsemparent = 0
+let tem_parent = false
+let parent_na_op = false
+let num_sem_parent = null
+let ms = null
 
 function apagar() {
     num.innerHTML = ''
     operador.innerHTML = ''
-    res1 = 0
-    res2 = 0
+    res1 = null
+    res2 = null
     operacao = ''
-    paren = ''
-    paren2 = ''
-    numsemparent = 0
+    tem_parent = false
+    parent_na_op = false
+    num_sem_parent = null
+    ms = null
 }
 
-function um() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '1'
+function numero(n) {
+    if (tem_parent) return
+    if (operador.innerHTML != '' && isNaN(num.innerHTML) && tem_parent == false) {
+        num.innerHTML = `${n}`
     } else {
-        num.innerHTML += '1'
-    }
-}
-
-function dois() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '2'
-    } else {
-        num.innerHTML += '2'
-    }
-}
-
-function tres() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '3'
-    } else {
-        num.innerHTML += '3'
-    }
-}
-
-function quatro(){
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '4'
-    } else {
-        num.innerHTML += '4'
-    }
-}
-
-function cinco() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '5'
-    } else {
-        num.innerHTML += '5'
-    }
-}
-
-function seis() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '6'
-    } else {
-        num.innerHTML += '6'
-    }
-}
-
-function sete() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '7'
-    } else {
-        num.innerHTML += '7'
-    }
-}
-
-function oito() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '8'
-    } else {
-        num.innerHTML += '8'
-    }
-}
-
-function nove() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '9'
-    } else {
-        num.innerHTML += '9'
-    }
-}
-
-function zero() {
-    if (paren == 'sim') {
-        return
-    }
-    if (operador.innerHTML != '') {
-        num.innerHTML = '0'
-    } else {
-        num.innerHTML += '0'
+        num.innerHTML += `${n}`
     }
 }
 
 function parentesis() {
-    if (paren == 'sim' && numsemparent == 0) {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) return
+    if (tem_parent && num_sem_parent == null) {
         num.innerHTML = ''
+        tem_parent = false
+        parent_na_op = false
         return
-    } else if (paren == 'sim') {
-        num.innerHTML = String(numsemparent)
-        paren = 'nao'
-        paren2 = 'nao'
+    } else if (tem_parent) {
+        num.innerHTML = String(num_sem_parent)
+        tem_parent = false
+        parent_na_op = false
         return
+    } else if (num.innerHTML == '') {
+        num.innerHTML = '()'
+        tem_parent = true
+        parent_na_op = true
+    } else {
+        num_sem_parent = Number(num.innerHTML)
+        num.innerHTML = `(${num.innerHTML})`
+        tem_parent = true
+        parent_na_op = true
     }
-    numsemparent = Number(num.innerHTML)
-    num.innerHTML = `(${num.innerHTML})`
-    paren = 'sim'
-    paren2 = 'sim'
 }
 
 function ponto() {
-    if (paren == 'sim') {
-        return
-    }
-    if (num.innerHTML.includes('.'))
-        return
+    if (tem_parent) return
+    if (num.innerHTML.includes('.')) return
     num.innerHTML += '.'
 }
 
 function mudasinal() {
-    ms = Number(num.innerHTML)
-    ms = (ms * (-1))
-    num.innerHTML = ms.toString()
+    if (isNaN(num.innerHTML) && tem_parent== false) return
+    if (tem_parent && num_sem_parent == null) {
+        return 
+    } else  if (tem_parent) {
+        ms = num_sem_parent
+        ms = (ms * -1)
+        num_sem_parent = ms
+        num.innerHTML = `(${ms})`
+    } else {
+        ms = Number(num.innerHTML)
+        ms = (ms * (-1))
+        num.innerHTML = ms.toString() 
+    }
 }
 
-function somar() {
+function calc(op) {
+    if (num.innerHTML == '') return
+    if (tem_parent && num_sem_parent == null) return 
     if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
         return
     } else if (operador.innerHTML != '') {
         igual()
         res1 = Number(num.innerHTML)
-        operador.innerHTML = '+'
-        operacao = 'soma'
-        paren = 'nao'
+        operador.innerHTML = op
+        operacao = op
+        tem_parent = false
     } else {
     res1 = Number(num.innerHTML)
-    num.innerHTML = ' + '
-    operador.innerHTML = '+'
-    operacao = 'soma'
-    paren = 'nao'
+    num.innerHTML = op
+    operador.innerHTML = op
+    operacao = op
+    tem_parent = false
     }
+    ms = null
 }
-
-function subtrair() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
-        return
-    } else if (operador.innerHTML != '') {
-        igual()
-        res1 = Number(num.innerHTML)
-        operador.innerHTML = '-'
-        operacao = 'sub'
-        paren = 'nao'
-    } else {
-    res1 = Number(num.innerHTML)
-    num.innerHTML = ' - '
-    operador.innerHTML = '-'
-    operacao = 'sub'
-    paren = 'nao'
-    }
-}
-
-function multiplicar() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
-        return
-    } else if (operador.innerHTML != '') {
-        igual()
-        res1 = Number(num.innerHTML)
-        operador.innerHTML = 'x'
-        operacao = 'mult'
-        paren = 'nao'
-    } else {
-    res1 = Number(num.innerHTML)
-    num.innerHTML = ' x '
-    operador.innerHTML = 'x'
-    operacao = 'mult'
-    paren = 'nao'
-    }
-}
-
-function dividir() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
-        return
-    } else if (operador.innerHTML != '') {
-        igual()
-        res1 = Number(num.innerHTML)
-        operador.innerHTML = '÷'
-        operacao = 'div'
-        paren = 'nao'
-    } else {
-    res1 = Number(num.innerHTML)
-    num.innerHTML = ' ÷ '
-    operador.innerHTML = '÷'
-    operacao = 'div'
-    paren = 'nao'
-    }
-}
-
-function porcentagem() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
-        return
-    } else if (operador.innerHTML != '') {
-        igual()
-        res1 = Number(num.innerHTML)
-        operador.innerHTML = '%'
-        operacao = 'porc'
-        paren = 'nao'
-    } else {
-    res1 = Number(num.innerHTML)
-    num.innerHTML = ' % '
-    operador.innerHTML = '%'
-    operacao = 'porc'
-    paren = 'nao'
-    }
-}
-
 
 function igual() {
-    if (paren2 == 'sim') {
+    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) return
+    if (parent_na_op) {
         if (isNaN(Number(num.innerHTML)) == false) {
-            res1 = numsemparent
+            res1 = num_sem_parent
         } else {
-            num.innerHTML = numsemparent.toString()
+            num.innerHTML = num_sem_parent.toString()
         }
     }
     
     switch (operacao) {
-        case 'soma':
+        case '+':
             res2 = (res1 + Number(num.innerHTML)) 
             num.innerHTML = res2
             break;
-        case 'sub':
+        case '-':
             res2 = (res1 - Number(num.innerHTML))
             num.innerHTML = res2
             break;
-        case 'mult':
+        case 'x':
             res2 = (res1 * Number(num.innerHTML))
             num.innerHTML = res2
             break;
-        case 'div':
+        case '÷':
             if (Number(num.innerHTML) == 0) {
                 num.innerHTML = 'Impossível calcular'
             } else {
@@ -280,15 +127,14 @@ function igual() {
                 num.innerHTML = res2
             }
             break;
-        case 'porc':
+        case '%':
             res2 = ((res1 * Number(num.innerHTML)) / 100)
             num.innerHTML = res2
             break;
     }
-    paren = 'nao'
-    paren2 = 'nao'
+    tem_parent = false
+    parent_na_op = false
     operador.innerHTML = ''
-    numsemparent = 0
+    num_sem_parent = null
+    ms = null
 }
-
-
