@@ -22,15 +22,15 @@ function apagar() {
 
 function numero(n) {
     if (tem_parent) return
-    if (operador.innerHTML != '' && isNaN(num.innerHTML) && tem_parent == false) {
-        num.innerHTML = `${n}`
+    if (operador.innerHTML != '' && isNaN(num.innerHTML) && !tem_parent) {
+        num.innerHTML = n
     } else {
-        num.innerHTML += `${n}`
+        num.innerHTML += n
     }
 }
 
 function parentesis() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) return
+    if (isNaN(num.innerHTML) && !num.innerHTML.includes('(')) return
     if (tem_parent && num_sem_parent == null) {
         num.innerHTML = ''
         tem_parent = false
@@ -54,16 +54,17 @@ function parentesis() {
 }
 
 function ponto() {
-    if (tem_parent) return
-    if (num.innerHTML.includes('.')) return
+    if (tem_parent || num.innerHTML.includes('.')) return
+
     num.innerHTML += '.'
 }
 
 function mudasinal() {
-    if (isNaN(num.innerHTML) && tem_parent== false) return
-    if (tem_parent && num_sem_parent == null) {
-        return 
-    } else  if (tem_parent) {
+
+    if (isNaN(num.innerHTML) && !tem_parent) return
+    if (tem_parent && num_sem_parent == null) return
+    
+    if (tem_parent) {
         ms = num_sem_parent
         ms = (ms * -1)
         num_sem_parent = ms
@@ -78,8 +79,10 @@ function mudasinal() {
 function calc(op) {
     if (num.innerHTML == '') return
     if (tem_parent && num_sem_parent == null) return 
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) {
+    if (isNaN(num.innerHTML) && !num.innerHTML.includes('(')) {
+
         return
+        
     } else if (operador.innerHTML != '') {
         igual()
         res1 = Number(num.innerHTML)
@@ -97,9 +100,9 @@ function calc(op) {
 }
 
 function igual() {
-    if (isNaN(num.innerHTML) && num.innerHTML.includes('(') == false) return
+    if (isNaN(num.innerHTML) && !num.innerHTML.includes('(')) return
     if (parent_na_op) {
-        if (isNaN(Number(num.innerHTML)) == false) {
+        if (!isNaN(Number(num.innerHTML))) {
             res1 = num_sem_parent
         } else {
             num.innerHTML = num_sem_parent.toString()
